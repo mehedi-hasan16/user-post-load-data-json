@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user post </title>
+    <style>
+        .user{
+            background-color: skyblue;
+            padding: 5px 20px;
+            border-radius: 5px;
+            border: 1px solid tomato;
+            margin: 10px 0;
+        }
+        header h1{
+            text-align: center;
+            color: tomato;
+        }
+        .btn{
+            color: white;
+            font-weight: bold;
+            background-color: tomato;
+            padding: 10px 7px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover{
+            border: 2px solid tomato;
+            color: black;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User-post</h1>
+    </header>
+    <main>
+        <button onclick="jsonData()" class="btn">Click to Load Data</button>
+        <section id="user-section">
+            
+        </section>
+    </main>
+
+    <!-- js -->
+    <script>
+        function jsonData(){
+        const url = 'https://jsonplaceholder.typicode.com/posts';
+        fetch(url)
+        .then(res=>res.json())
+        .then(data=> loadData(data));
+        }
+
+
+        function loadData(data){
+            const userSection = document.getElementById('user-section');
+            for(const element of data){
+                const div = document.createElement('div');
+                div.classList='user'
+                div.innerHTML=`
+                <p>Id: ${element.id}</p>
+                <h3>Title: ${element.title}</h3>
+                <p>Body: ${element.body}</p>
+                `;
+                userSection.appendChild(div);
+            }
+        }
+
+    </script>
+</body>
+</html>
